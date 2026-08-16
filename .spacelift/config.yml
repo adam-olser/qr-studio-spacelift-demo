@@ -1,0 +1,7 @@
+version: "1"
+
+stack:
+  name: qr-studio-demo
+  terraform_workflow_tool: OPEN_TOFU
+  terraform_version: "1.7.2"
+  autodeploy: false
