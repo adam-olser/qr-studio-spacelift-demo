@@ -18,8 +18,12 @@ provider "render" {
 # the existing render.yaml Blueprint in the app repo — the render-oss
 # Terraform provider's render_web_service plan enum does not document a
 # free tier (starter and up only), so it isn't managed here.
+#
+# This is a separate Redis instance from the one already running in Render
+# (qr-studio-redis / red-d2g6ghv5r7bs73emm30g) — kept independent so this
+# demo stack can be applied/destroyed freely without touching production.
 resource "render_keyvalue" "redis" {
-  name              = "qr-studio-redis"
+  name              = "qr-studio-redis-demo"
   plan              = "free"
   region            = var.render_region
   max_memory_policy = "allkeys_lru"
