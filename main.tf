@@ -19,12 +19,13 @@ provider "render" {
 # Terraform provider's render_web_service plan enum does not document a
 # free tier (starter and up only), so it isn't managed here.
 #
-# This is a separate Redis instance from the one already running in Render
-# (qr-studio-redis / red-d2g6ghv5r7bs73emm30g) — kept independent so this
-# demo stack can be applied/destroyed freely without touching production.
+# Render allows only one free-tier Key Value instance per account, so this
+# adopts the existing qr-studio-redis instance (red-d2g6ghv5r7bs73emm30g)
+# into Spacelift/OpenTofu via `tofu import` rather than creating a new one.
 resource "render_keyvalue" "redis" {
-  name              = "qr-studio-redis-demo"
+  name              = "qr-studio-redis"
   plan              = "free"
   region            = var.render_region
   max_memory_policy = "allkeys_lru"
+  persistence_mode  = "off"
 }
