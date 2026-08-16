@@ -22,17 +22,19 @@ provider "render" {
 # Render allows only one free-tier Key Value instance per account, so this
 # adopts the existing qr-studio-redis instance (red-d2g6ghv5r7bs73emm30g)
 # into Spacelift/OpenTofu via `tofu import` rather than creating a new one.
-resource "render_keyvalue" "redis" {
-  name              = "qr-studio-redis"
-  plan              = "free"
-  region            = var.render_region
-  max_memory_policy = "allkeys_lru"
-  persistence_mode  = "off"
-
-  ip_allow_list = [
-    {
-      cidr_block  = "0.0.0.0/0"
-      description = "open (default) — tracked explicitly for visibility"
-    }
-  ]
-}
+# DEMO: intentionally removing this resource to show the deny-destroy
+# Plan Policy blocking the run. Do not merge.
+# resource "render_keyvalue" "redis" {
+#   name              = "qr-studio-redis"
+#   plan              = "free"
+#   region            = var.render_region
+#   max_memory_policy = "allkeys_lru"
+#   persistence_mode  = "off"
+#
+#   ip_allow_list = [
+#     {
+#       cidr_block  = "0.0.0.0/0"
+#       description = "open (default) — tracked explicitly for visibility"
+#     }
+#   ]
+# }
