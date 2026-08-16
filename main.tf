@@ -28,4 +28,11 @@ resource "render_keyvalue" "redis" {
   region            = var.render_region
   max_memory_policy = "allkeys_lru"
   persistence_mode  = "off"
+
+  ip_allow_list = [
+    {
+      cidr_block  = "0.0.0.0/0"
+      description = "open (default) — tracked explicitly for visibility"
+    }
+  ]
 }
